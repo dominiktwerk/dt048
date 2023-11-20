@@ -1,0 +1,52 @@
+---
+title: "Anne_Will"
+subtitle: "Training - Einzelabgabe"
+author: "Türk Dominik - dt048"
+date: "2023-11-20"
+output: html_document
+---
+
+# Setup
+
+```{r setup}
+library(igraph)
+
+# für die Grafiken
+# set.seed=12 ermöglicht die Vergleichbarkeit der Grafiken
+```
+
+
+## Netzwerk erstellen
+
+```{r 1-1 Gesamnetzwerk erstellen, echo=FALSE}
+
+library(igraph)
+
+# Einlesen der Edge- und Nodelist
+el <- read.csv("https://raw.githubusercontent.com/dominiktwerk/dt048/main/Anne_Will_Edgelist_dt048.csv", header=T, as.is=T, sep = ",")
+
+nodes <- read.csv("https://raw.githubusercontent.com/dominiktwerk/dt048/main/Anne_Will_Nodelist_dt048.csv", header=T, as.is=T, sep = ",")
+
+# wandelt die Edgelist als Matrix um.
+edgematrix <-as.matrix(edges)
+
+# erstellt ein igraph-objekt aus der Fusion von Edge- und Nodelist
+anne_will <- graph_from_data_frame (d=edgematrix, directed=T) 
+
+```
+
+```{r Einfache Visualisierung des erstellten Objekt, echo=FALSE, fig.height=8, fig.width=10}
+
+plot(graph, 
+     layout = layout_with_fr(graph),  # Layout-Algorithmus
+     vertex.label = V(graph)$name,     # Knotenbeschriftung
+     vertex.size = 15,                 # Größe der Knoten
+     vertex.color = "pink",           # Farbe der Knoten
+     edge.color = "gray",              # Farbe der Kanten
+      vertex.label.dist = 1.5,       # Abstand der Beschriftung von den Knoten
+     vertex.label.cex = 0.8,        # Größe der Beschriftung
+     main = "Gäste bei Anne Will - Folge 500-503") # Titel der Visualisierung
+
+
+```
+
